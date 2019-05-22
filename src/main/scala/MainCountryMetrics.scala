@@ -42,17 +42,17 @@ object MainCountryMetrics {
     val humidityCountryMetricsOutputPath = outputBasePath + "humidity_country_metrics"
     val humidityCountryMetricsOutput = CountryMetricsQuery.run(humidityInput)
     humidityCountryMetricsOutput.show()
-    humidityCountryMetricsOutput.rdd.map(YearMonthCountryMetricsItemParser.FromRow).coalesce(1).saveAsTextFile(humidityCountryMetricsOutputPath)
+    humidityCountryMetricsOutput.rdd.map(YearMonthCountryMetricsItemParser.FromRow).saveAsTextFile(humidityCountryMetricsOutputPath)
 
     val pressureCountryMetricsOutputPath = outputBasePath + "pressure_country_metrics"
     val pressureCountryMetricsOutput = CountryMetricsQuery.run(pressureInput)
     pressureCountryMetricsOutput.show()
-    pressureCountryMetricsOutput.rdd.map(YearMonthCountryMetricsItemParser.FromRow).coalesce(1).saveAsTextFile(pressureCountryMetricsOutputPath)
+    pressureCountryMetricsOutput.rdd.map(YearMonthCountryMetricsItemParser.FromRow).saveAsTextFile(pressureCountryMetricsOutputPath)
 
     val temperatureCountryMetricsOutputPath = outputBasePath + "temperature_country_metrics"
     val temperatureCountryMetricsOutput = CountryMetricsQuery.run(temperatureInput)
     temperatureCountryMetricsOutput.show(false)
-    temperatureCountryMetricsOutput.rdd.map(YearMonthCountryMetricsItemParser.FromRow).coalesce(1).saveAsTextFile(temperatureCountryMetricsOutputPath)
+    temperatureCountryMetricsOutput.rdd.map(YearMonthCountryMetricsItemParser.FromRow).saveAsTextFile(temperatureCountryMetricsOutputPath)
 
     spark.stop()
   }

@@ -47,27 +47,27 @@ object Main {
     val clearCitiesOutputPath = outputBasePath + "sql/clear_cities"
     val clearCitiesOutput = ClearCitiesQuery.run(weatherDescriptionInput)
     clearCitiesOutput.show()
-    clearCitiesOutput.rdd.map(YearCityItemParser.FromRow).coalesce(1).saveAsTextFile(clearCitiesOutputPath)
+    clearCitiesOutput.rdd.map(YearCityItemParser.FromRow).saveAsTextFile(clearCitiesOutputPath)
 
     val humidityCountryMetricsOutputPath = outputBasePath + "humidity_country_metrics"
     val humidityCountryMetricsOutput = CountryMetricsQuery.run(humidityInput)
     humidityCountryMetricsOutput.show()
-    humidityCountryMetricsOutput.rdd.map(YearMonthCountryMetricsItemParser.FromRow).coalesce(1).saveAsTextFile(humidityCountryMetricsOutputPath)
+    humidityCountryMetricsOutput.rdd.map(YearMonthCountryMetricsItemParser.FromRow).saveAsTextFile(humidityCountryMetricsOutputPath)
 
     val pressureCountryMetricsOutputPath = outputBasePath + "pressure_country_metrics"
     val pressureCountryMetricsOutput = CountryMetricsQuery.run(pressureInput)
     pressureCountryMetricsOutput.show()
-    pressureCountryMetricsOutput.rdd.map(YearMonthCountryMetricsItemParser.FromRow).coalesce(1).saveAsTextFile(pressureCountryMetricsOutputPath)
+    pressureCountryMetricsOutput.rdd.map(YearMonthCountryMetricsItemParser.FromRow).saveAsTextFile(pressureCountryMetricsOutputPath)
 
     val temperatureCountryMetricsOutputPath = outputBasePath + "temperature_country_metrics"
     val temperatureCountryMetricsOutput = CountryMetricsQuery.run(temperatureInput)
     temperatureCountryMetricsOutput.show(false)
-    temperatureCountryMetricsOutput.rdd.map(YearMonthCountryMetricsItemParser.FromRow).coalesce(1).saveAsTextFile(temperatureCountryMetricsOutputPath)
+    temperatureCountryMetricsOutput.rdd.map(YearMonthCountryMetricsItemParser.FromRow).saveAsTextFile(temperatureCountryMetricsOutputPath)
 
     val maxDiffCountriesOutputPath = outputBasePath + "max_diff_countries"
     val maxDiffCountriesOutput = MaxDiffCountriesQuery.run(temperatureInput)
     maxDiffCountriesOutput.show(false)
-    maxDiffCountriesOutput.rdd.map(CountryCityRankCompareItemParser.FromRow).coalesce(1).saveAsTextFile(maxDiffCountriesOutputPath)
+    maxDiffCountriesOutput.rdd.map(CountryCityRankCompareItemParser.FromRow).saveAsTextFile(maxDiffCountriesOutputPath)
 
     spark.stop()
   }

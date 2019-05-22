@@ -32,7 +32,7 @@ object MainClearCities {
     val clearCitiesOutputPath = outputBasePath + "sql/clear_cities"
     val clearCitiesOutput = ClearCitiesQuery.run(weatherDescriptionInput)
     clearCitiesOutput.show()
-    clearCitiesOutput.rdd.map(YearCityItemParser.FromRow).coalesce(1).saveAsTextFile(clearCitiesOutputPath)
+    clearCitiesOutput.rdd.map(YearCityItemParser.FromRow).saveAsTextFile(clearCitiesOutputPath)
 
     spark.stop()
   }

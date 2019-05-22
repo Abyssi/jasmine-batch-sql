@@ -32,7 +32,7 @@ object MainMaxDiffCountries {
     val maxDiffCountriesOutputPath = outputBasePath + "max_diff_countries"
     val maxDiffCountriesOutput = MaxDiffCountriesQuery.run(temperatureInput)
     maxDiffCountriesOutput.show(false)
-    maxDiffCountriesOutput.rdd.map(CountryCityRankCompareItemParser.FromRow).coalesce(1).saveAsTextFile(maxDiffCountriesOutputPath)
+    maxDiffCountriesOutput.rdd.map(CountryCityRankCompareItemParser.FromRow).saveAsTextFile(maxDiffCountriesOutputPath)
 
     spark.stop()
   }
