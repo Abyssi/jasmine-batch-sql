@@ -1,9 +1,9 @@
-import model.{CountryCityRankCompareItemParser, YearCityItemParser, YearMonthCountryMetricsItemParser}
+import model.YearMonthCountryMetricsItemParser
 import operators.SQLQueryBuilder
 import org.apache.spark.sql.SparkSession
-import queries.{ClearCitiesQuery, CountryMetricsQuery, MaxDiffCountriesQuery}
+import queries.CountryMetricsQuery
 
-object Main {
+object MainCountryMetrics {
 
   /**
     * main function
@@ -39,16 +39,6 @@ object Main {
     val temperatureInput = new SQLQueryBuilder(spark, "temperature")
       .sql("temperature", "SELECT TO_TIMESTAMP(REPLACE(table.datetime, ' ', 'T') || attributes.timeOffset, \"yyyy-MM-dd'T'HH:mm:ssZ\") as datetime, table.city, attributes.country, table.value FROM {TABLE_NAME} AS table INNER JOIN attributes ON table.city=attributes.City")
 
-    spark.read.parquet(inputBasePath + "parquet/weather_description.parquet")
-      .createOrReplaceTempView("weather_description")
-    val weatherDescriptionInput = new SQLQueryBuilder(spark, "weather_description")
-      .sql("weather_description", "SELECT TO_TIMESTAMP(REPLACE(table.datetime, ' ', 'T') || attributes.timeOffset, \"yyyy-MM-dd'T'HH:mm:ssZ\") as datetime, table.city, attributes.country, table.value FROM {TABLE_NAME} AS table INNER JOIN attributes ON table.city=attributes.City")
-
-    val clearCitiesOutputPath = outputBasePath + "sql/clear_cities"
-    val clearCitiesOutput = ClearCitiesQuery.run(weatherDescriptionInput)
-    clearCitiesOutput.show()
-    clearCitiesOutput.rdd.map(YearCityItemParser.FromRow).coalesce(1).saveAsTextFile(clearCitiesOutputPath)
-
     val humidityCountryMetricsOutputPath = outputBasePath + "humidity_country_metrics"
     val humidityCountryMetricsOutput = CountryMetricsQuery.run(humidityInput)
     humidityCountryMetricsOutput.show()
@@ -63,11 +53,6 @@ object Main {
     val temperatureCountryMetricsOutput = CountryMetricsQuery.run(temperatureInput)
     temperatureCountryMetricsOutput.show(false)
     temperatureCountryMetricsOutput.rdd.map(YearMonthCountryMetricsItemParser.FromRow).coalesce(1).saveAsTextFile(temperatureCountryMetricsOutputPath)
-
-    val maxDiffCountriesOutputPath = outputBasePath + "max_diff_countries"
-    val maxDiffCountriesOutput = MaxDiffCountriesQuery.run(temperatureInput)
-    maxDiffCountriesOutput.show(false)
-    maxDiffCountriesOutput.rdd.map(CountryCityRankCompareItemParser.FromRow).coalesce(1).saveAsTextFile(maxDiffCountriesOutputPath)
 
     spark.stop()
   }
