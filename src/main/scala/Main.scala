@@ -29,8 +29,9 @@ object Main {
       if (config.clearCitiesQueryEnabled) {
         spark.read.parquet(s"${config.inputBasePath}${config.inputFormat}/weather_description.${config.inputFormat}")
           .createOrReplaceTempView("weather_description")
-        val weatherDescriptionInput = new SQLQueryBuilder(spark, "weather_description")
-          .sql("weather_description", "SELECT TO_TIMESTAMP(REPLACE(table.datetime, ' ', 'T') || attributes.timeOffset, \"yyyy-MM-dd'T'HH:mm:ssZ\") as datetime, table.city, attributes.country, table.value FROM {TABLE_NAME} AS table INNER JOIN attributes ON table.city=attributes.City")
+        var weatherDescriptionInput = new SQLQueryBuilder(spark, "weather_description")
+        if (config.needJoin)
+          weatherDescriptionInput = weatherDescriptionInput.sql("weather_description", "SELECT TO_TIMESTAMP(REPLACE(table.datetime, ' ', 'T') || attributes.timeOffset, \"yyyy-MM-dd'T'HH:mm:ssZ\") as datetime, table.city, attributes.country, table.value FROM {TABLE_NAME} AS table INNER JOIN attributes ON table.city=attributes.City")
 
         val clearCitiesOutputPath = config.outputBasePath + "clear_cities"
         val clearCitiesOutput = ClearCitiesQuery.run(weatherDescriptionInput)
