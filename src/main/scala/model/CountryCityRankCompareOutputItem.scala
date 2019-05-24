@@ -3,8 +3,20 @@ package model
 import org.apache.spark.sql.Row
 import utils.JsonSerializable
 
+/**
+  * CountryCityRankItem class
+  * @param position
+  * @param value
+  */
 case class CountryCityRankItem(position: Int, value: Double) extends Serializable with JsonSerializable
 
+/**
+  * CountryCityRankCompareOutputItem
+  * @param country
+  * @param city
+  * @param newRank
+  * @param oldRank
+  */
 case class CountryCityRankCompareOutputItem(country: String, city: String, newRank: CountryCityRankItem, oldRank: CountryCityRankItem) extends Serializable with JsonSerializable
 
 object CountryCityRankCompareOutputItem {

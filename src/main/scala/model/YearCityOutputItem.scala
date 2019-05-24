@@ -3,6 +3,11 @@ package model
 import org.apache.spark.sql.Row
 import utils.JsonSerializable
 
+/**
+  * YearCityOutputItem class
+  * @param year
+  * @param city
+  */
 case class YearCityOutputItem(year: Int, city: String) extends Serializable with JsonSerializable
 
 object YearCityOutputItem {

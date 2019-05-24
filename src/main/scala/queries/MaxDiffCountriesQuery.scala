@@ -4,7 +4,7 @@ import operators.SQLQueryBuilder
 import org.apache.spark.sql.DataFrame
 
 /**
-  *
+  * Query 3
   **/
 object MaxDiffCountriesQuery {
 

@@ -3,8 +3,22 @@ package model
 import org.apache.spark.sql.Row
 import utils.JsonSerializable
 
+/**
+  * Metrics class
+  * @param mean
+  * @param stdev
+  * @param min
+  * @param max
+  */
 case class Metrics(mean: Double, stdev: Double, min: Double, max: Double) extends Serializable with JsonSerializable
 
+/**
+  * YearMonthCountryMetricsOutputItem class
+  * @param year
+  * @param month
+  * @param country
+  * @param metrics
+  */
 case class YearMonthCountryMetricsOutputItem(year: Int, month: Int, country: String, metrics: Metrics) extends Serializable with JsonSerializable
 
 object YearMonthCountryMetricsOutputItem {

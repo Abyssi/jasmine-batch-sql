@@ -2,6 +2,9 @@ package model
 
 import org.apache.spark.sql.types._
 
+/**
+  * CityCountryValueSample
+  */
 object CityCountryValueSample {
   def Schema: StructType = StructType(Array(
     StructField("datetime", TimestampType, nullable = false),

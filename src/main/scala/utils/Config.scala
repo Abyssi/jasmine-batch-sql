@@ -1,5 +1,15 @@
 package utils
 
+/**
+  * Configuration class
+  * @param inputBasePath
+  * @param outputBasePath
+  * @param inputFormat
+  * @param needJoin
+  * @param clearCitiesQueryEnabled
+  * @param countryMetricsQueryEnabled
+  * @param maxDiffCountriesQueryEnabled
+  */
 case class Config(inputBasePath: String, outputBasePath: String, inputFormat: String, needJoin: Boolean, clearCitiesQueryEnabled: Boolean, countryMetricsQueryEnabled: Boolean, maxDiffCountriesQueryEnabled: Boolean)
 
 object Config {
