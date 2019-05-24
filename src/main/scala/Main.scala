@@ -42,7 +42,7 @@ object Main {
         val clearCitiesOutput = ClearCitiesQuery.run(weatherDescriptionInput)
         //ProfilingUtils.timeDataFrame(clearCitiesOutput, "clear Cities Output")
         //clearCitiesOutput.show()
-        clearCitiesOutput.rdd.map(YearCityOutputItem.From).coalesce(1).saveAsTextFile(clearCitiesOutputPath)
+        clearCitiesOutput.rdd.map(YearCityOutputItem.From).saveAsTextFile(clearCitiesOutputPath)
       }
 
       if (config.countryMetricsQueryEnabled || config.maxDiffCountriesQueryEnabled) {
@@ -69,17 +69,17 @@ object Main {
           val humidityCountryMetricsOutputPath = config.outputBasePath + "humidity_country_metrics"
           val humidityCountryMetricsOutput = CountryMetricsQuery.run(humidityInput)
           //humidityCountryMetricsOutput.show()
-          humidityCountryMetricsOutput.rdd.map(YearMonthCountryMetricsOutputItem.From).coalesce(1).saveAsTextFile(humidityCountryMetricsOutputPath)
+          humidityCountryMetricsOutput.rdd.map(YearMonthCountryMetricsOutputItem.From).saveAsTextFile(humidityCountryMetricsOutputPath)
 
           val pressureCountryMetricsOutputPath = config.outputBasePath + "pressure_country_metrics"
           val pressureCountryMetricsOutput = CountryMetricsQuery.run(pressureInput)
           //pressureCountryMetricsOutput.show()
-          pressureCountryMetricsOutput.rdd.map(YearMonthCountryMetricsOutputItem.From).coalesce(1).saveAsTextFile(pressureCountryMetricsOutputPath)
+          pressureCountryMetricsOutput.rdd.map(YearMonthCountryMetricsOutputItem.From).saveAsTextFile(pressureCountryMetricsOutputPath)
 
           val temperatureCountryMetricsOutputPath = config.outputBasePath + "temperature_country_metrics"
           val temperatureCountryMetricsOutput = CountryMetricsQuery.run(temperatureInput)
           //temperatureCountryMetricsOutput.show(false)
-          temperatureCountryMetricsOutput.rdd.map(YearMonthCountryMetricsOutputItem.From).coalesce(1).saveAsTextFile(temperatureCountryMetricsOutputPath)
+          temperatureCountryMetricsOutput.rdd.map(YearMonthCountryMetricsOutputItem.From).saveAsTextFile(temperatureCountryMetricsOutputPath)
         }
 
         // MAX DIFF COUNTRIES QUERY
@@ -87,7 +87,7 @@ object Main {
           val maxDiffCountriesOutputPath = config.outputBasePath + "max_diff_countries"
           val maxDiffCountriesOutput = MaxDiffCountriesQuery.run(temperatureInput)
           //maxDiffCountriesOutput.show(false)
-          maxDiffCountriesOutput.rdd.map(CountryCityRankCompareOutputItem.From).coalesce(1).saveAsTextFile(maxDiffCountriesOutputPath)
+          maxDiffCountriesOutput.rdd.map(CountryCityRankCompareOutputItem.From).saveAsTextFile(maxDiffCountriesOutputPath)
         }
       }
     }
