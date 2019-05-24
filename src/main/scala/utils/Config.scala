@@ -17,7 +17,7 @@ object Config {
   }
 
   def default = new Config(
-    "data/inputs/processed/",
+    "data/inputs/processed/need-join/",
     "data/outputs/sql/",
     "parquet",
     true,
