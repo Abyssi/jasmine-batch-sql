@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ScalaCompilerConfiguration">
+    <profile name="sbt 1" modules="jasmine-batch-sql_6759,jasmine-batch-sql" />
+  </component>
+</project>
